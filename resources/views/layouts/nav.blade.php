@@ -5,6 +5,8 @@
     @if (Auth::user()->is_admin)
     <ul class="am-nav am-nav-pills am-topbar-nav">
       <li class="{{ (isset($page) and ($page == 'users')) ? 'am-active' : '' }}"><a href="{{ URL::to('admin/users') }}">Users</a></li>
+      <li class="{{ (isset($page) and ($page == 'articles')) ? 'am-active' : '' }}"><a href="{{ URL::to('admin/articles') }}">Articles</a></li>
+      <li class="{{ (isset($page) and ($page == 'tags')) ? 'am-active' : '' }}"><a href="{{ URL::to('admin/tags') }}">Tags</a></li>
     </ul>
     @endif
     <div class="am-topbar-right">
@@ -17,10 +19,15 @@
                 <span class="am-icon-edit"></span> Publish Article
             </a>
           </li>
+          
           <li><a href="{{ URL::to('user/'. Auth::id() . '/edit') }}"><span class="am-icon-user"></span> Information</a></li>
           <li><a href="{{ URL::to('logout') }}"><span class="am-icon-power-off"></span> Exit</a></li>
         </ul>
       </div>
+    </div>
+    <!-- ???? -->
+    <div class="am-topbar-right">
+      <a href="{{ URL::to('user/'. Auth::id() . '/articles') }}" class="am-btn am-btn-primary am-topbar-btn am-btn-sm topbar-link-btn"><span class="am-icon-list"></span> My Articles</a>
     </div>
   <!-- ????????? -->
   @else

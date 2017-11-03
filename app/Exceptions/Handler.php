@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-
+use Symfony\Component\Debug\Exception\FatalErrorException;
 class Handler extends ExceptionHandler
 {
     /**
@@ -38,6 +38,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if ($e instanceof FatalErrorException) {
+            return response()->view('errors.error', [], 500);
+        }
         return parent::render($request, $e);
     }
 }

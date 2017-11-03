@@ -1,46 +1,39 @@
 @extends('layouts.default')
-
+<!-- ???? -->
 @section('main')
 <div class="am-g am-g-fixed blog-g-fixed">
   <div class="am-u-sm-12">
       <table class="am-table am-table-hover am-table-striped ">
       <thead>
       <tr>
-        <th>Title</th>
-        <th>Tags</th>
-        @if ($user->id == Auth::id())
+        <th>TagName</th>
+        <th>ArticleCount</th>
+        <th>CreateDateTime</th>
         <th>Managment</th>
-        @endif
       </tr>
       </thead>
       <tbody>
-      <!-- ?????? -->
-        @foreach ($articles as $article)
+        @foreach ($tags as $tag)
         <tr>
-          <td><a href="{{ URL::route('article.show', $article->id) }}">{{{ $article->title }}}</a></td>
+          <td>{{{ $tag->name }}}</td>
+          <td>{{ $tag->count }}</td>
+          <td>{{ $tag->created_at->format('Y-m-d H:i') }}</td>
           <td>
-          @foreach ($article->tags as $tag)
-            <span class="am-badge am-badge-success am-radius"><a href="{{ URL::to('tag/' . $tag->id . '/articles') }}">{{ $tag->name }}</a></span>
-          @endforeach
-          </td>
-          <!-- ??????????????? -->
-          @if ($user->id == Auth::id() or (Auth::check() and Auth::user()->is_admin))
-            <td>
-              <a href="{{ URL::to('article/'. $article->id . '/edit') }}" class="am-btn am-btn-xs am-btn-primary"><span class="am-icon-pencil"></span> Edit</a>
-              <form action="{{URL::to('article/'.$article->id.'/delete')}}" method="get" accept-charset="utf-8" style="display: inline;">
-                 <button type="button" class="am-btn am-btn-xs am-btn-danger" id="delete{{ $article->id }}">
+              <a href="{{ URL::to('tag/'. $tag->id . '/edit') }}" class="am-btn am-btn-xs am-btn-primary"><span class="am-icon-pencil"></span> Edit</a>
+              <form action="{{ URL::to('tag/'.$tag->id.'/delete')}}" method="get" accept-charset="utf-8" style="display: inline;">
+                 <button type="button" class="am-btn am-btn-xs am-btn-danger" id="delete{{ $tag->id }}">
                      <span class="am-icon-remove"></span> Delete
                  </button>
               </form>
-            </td>
-          @endif
+           </td>
         </tr>
         @endforeach
       </tbody>
     </table>
   </div>
 </div>
-<!-- ????? -->
+
+<!-- ??? -->
 <div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
   <div class="am-modal-dialog">
     <div class="am-modal-bd">

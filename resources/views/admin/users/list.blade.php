@@ -24,7 +24,7 @@
         <tr>
           <td>{{ $user->id }}</td>
           <td>{{ $user->email }}</td>
-          <td>{{{ $user->nickname }}}</td>
+          <td><a href="{{ URL::to('user/' . $user->id . '/articles') }}">{{{ $user->nickname }}}</a></td>
         <td>
           <a href="{{ URL::to('user/'.$user->id .'/edit') }}" class="am-btn am-btn-xs am-btn-primary">Edit</a>
       <form action="{{URL::to('user/'.$user->id .'/reset')}}" method="get" accept-charset="utf-8" style="display: inline;">
